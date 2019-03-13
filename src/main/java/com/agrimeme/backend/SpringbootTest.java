@@ -8,7 +8,7 @@ import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 import javax.annotation.PostConstruct;
 import java.util.TimeZone;
 
-@SpringBootApplication
+@SpringBootApplication()
 @EntityScan(basePackageClasses = { 
 		SpringbootTest.class,
 		Jsr310JpaConverters.class 
@@ -17,7 +17,7 @@ public class SpringbootTest {
 
 	@PostConstruct
 	void init() {
-		TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+		TimeZone.setDefault(TimeZone.getTimeZone("Asia/Jakarta"));
 	}
 
 	public static void main(String[] args) {
