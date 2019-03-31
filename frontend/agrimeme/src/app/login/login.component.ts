@@ -21,8 +21,16 @@ export class LoginComponent implements OnInit {
   login(){
     // console.log("the data are: ",this.password, this.emailorusername);
     this.userService._login(this.emailorusername, this.password)
-        .subscribe(result => {
-            console.log(result);
-        });
+      .subscribe(
+        result => {
+          console.log(result);
+          localStorage.setItem('userToken', JSON.stringify(result));
+          return true;
+        },
+        err => {
+          return false;
+        }
+      );
+
   }
 }

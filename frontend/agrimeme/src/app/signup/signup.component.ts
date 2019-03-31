@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
+import { User } from '../user';
 import { UserService } from '../user.service';
 
 @Component({
@@ -9,22 +11,18 @@ import { UserService } from '../user.service';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
+  user = new User();
 
-  email: string;
-  username: string;
-  name: string;
-  password: string;
-
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private router: Router) {}
 
   ngOnInit() {
   }
 
   signup () {
-    // console.log("The data are: ",this.email, this.username, this.name, this.password);
-    this.userService._signup(this.name, this.email, this.username, this.password)
+    this.userService._signup(this.user)
         .subscribe(result => {
           console.log(result);
+          this.router.navigate(['/login']);
         });
   }
 

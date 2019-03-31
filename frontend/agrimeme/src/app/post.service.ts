@@ -16,4 +16,8 @@ export class PostService {
       return this.http.get(this.POSTS_API);
   }
 
+  fetchPost(id: number): Observable<any>{
+    return this.http.get(this.POSTS_API+`${id}`);
+  }
+
 }

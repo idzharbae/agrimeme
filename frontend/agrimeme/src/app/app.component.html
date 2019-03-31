@@ -4,9 +4,9 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
   <div class="container">
     <a routerLink="/home" class="navbar-brand">Agrimeme</a>
-      <ul class="navbar-nav navbar-right">
-        <li>
-          <a routerLink="/signup" class="navbar-brand">Daftar</a>
+      <ul class="navbar-nav navbar-right" *ngIf="!isLogin">
+        <li class="mx-1">
+          <a routerLink="/signup" class="btn btn-primary btn-lg">Daftar</a>
         </li>
         <li>
           <a routerLink="/signin" class="btn btn-info btn-lg">
@@ -14,7 +14,14 @@
           </a>
         </li>
       </ul>
+      <ul class="navbar-nav navbar-right" *ngIf="isLogin">
+        <li class="mx-1">
+          <a routerLink="/logout" class="btn btn-primary btn-lg">Logout</a>
+        </li>
+      </ul>
   </div>
 </nav>
-<router-outlet></router-outlet>
+<mat-progress-bar *ngIf="loading" color="accent" mode="indeterminate">
+</mat-progress-bar>
 <!-- Nav -->
+<router-outlet></router-outlet>
