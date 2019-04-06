@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { PostService } from '../post.service';
 
 import { Post } from '../post';
+import { CommentComponent } from '../comment/comment.component';
 
 @Component({
   selector: 'app-post',
@@ -12,6 +13,7 @@ import { Post } from '../post';
 })
 export class PostComponent implements OnInit {
   post: Post;
+  id: number;
 
   constructor(
     private postService: PostService,
@@ -25,8 +27,8 @@ export class PostComponent implements OnInit {
   }
 
   getPost(){
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.postService.fetchPost(id)
+    this.id = +this.route.snapshot.paramMap.get('id');
+    this.postService.fetchPost(this.id)
       .subscribe( post =>  this.post = post );
   }
 

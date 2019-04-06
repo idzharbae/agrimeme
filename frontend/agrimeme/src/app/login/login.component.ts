@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { UserService } from '../user.service';
 
@@ -9,11 +10,14 @@ import { UserService } from '../user.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
+ 
   emailorusername: string;
   password: string;
 
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
   }
@@ -25,6 +29,7 @@ export class LoginComponent implements OnInit {
         result => {
           console.log(result);
           localStorage.setItem('userToken', JSON.stringify(result));
+          this.router.navigate(['/home']);
           return true;
         },
         err => {

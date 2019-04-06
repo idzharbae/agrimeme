@@ -34,4 +34,8 @@ export class UserService {
   isLogin(){
     return localStorage.getItem('userToken');
   }
+
+  _logout(){
+    return localStorage.removeItem('userToken');
+  }
 }

@@ -44,4 +44,9 @@ export class AppComponent {
     });
   }
 
+  logout(){
+    this.userService._logout();
+    this.router.navigate(['/home']);
+  }
+
 }
