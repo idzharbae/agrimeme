@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   Event,
   NavigationCancel,
@@ -15,14 +15,18 @@ import { UserService } from './user.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent{
   title = 'agrimeme';
   loading = false;
-  isLogin: any;
+  isLogin : boolean;
 
   constructor(private router: Router, private userService: UserService){
-    this.isLogin = this.userService.isLogin();
-
+    if(localStorage.getItem('accessToken') != null){
+      this.userService.isUserLoggedIn.next(true);
+    }
+    this.userService.isUserLoggedIn.subscribe( value => {
+            this.isLogin = value;
+    });
     this.router.events.subscribe((event: Event) => {
       switch(true){
         case event instanceof NavigationStart: {
@@ -43,5 +47,6 @@ export class AppComponent {
       }
     });
   }
+
 
 }

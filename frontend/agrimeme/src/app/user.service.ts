@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 import { User } from './user';
 
@@ -15,6 +16,7 @@ const httpOptions = {
 })
 export class UserService {
 
+  public isUserLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public AUTH_API:string = 'http://localhost:8080/api/auth/';
 
   constructor(
