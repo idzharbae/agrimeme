@@ -23,7 +23,10 @@ export class HomeComponent implements OnInit {
 
   getPost() {
     this.postService.fetchPosts()
-        .subscribe(posts => this.posts = posts.content);
+        .subscribe(posts => {
+          this.posts = posts.content;
+          this.posts.reverse();
+        });
   }
 
 }

@@ -32,8 +32,8 @@ public class Post extends AuditModel {
     private String description;
 
     @NotNull
-    @Lob
-    private String content;
+    @Size(max = 250)
+    private String imageUrl;
 
 	public Long getId() {
 		return id;
@@ -67,12 +67,12 @@ public class Post extends AuditModel {
 		this.description = description;
 	}
 
-	public String getContent() {
-		return content;
+	public String getImageUrl() {
+		return imageUrl;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 
     

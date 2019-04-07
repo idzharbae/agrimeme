@@ -8,6 +8,8 @@ import { Post } from './post';
 })
 export class PostService {
   public POSTS_API:string = 'http://localhost:8080/api/posts/';
+  public IMAGE_API:string = 'http://localhost:8080/api/uploadFile/';
+
   constructor(
     private http: HttpClient
   ) { }
@@ -20,8 +22,19 @@ export class PostService {
     return this.http.get(this.POSTS_API+`${id}`);
   }
 
+  submitImage(image : FormData){
+    let httpHeaders = new HttpHeaders({
+     'Cache-Control': 'no-cache',
+     'Authorization' : 'Bearer '+localStorage.getItem('accessToken')
+    }); 
+    let options = {
+      headers : httpHeaders
+    };
+    console.log(image);
+    return this.http.post(this.IMAGE_API, image, options);
+  }
+
   submitPost(post: Post){
-    console.log(post);
     let httpHeaders = new HttpHeaders({
      'Content-Type' : 'application/json',
      'Cache-Control': 'no-cache',
@@ -30,15 +43,11 @@ export class PostService {
     let req = {
       title : post.title, 
       description : post.description,
-      content : post.content
+      imageUrl : post.imageUrl
     };
     let options = {
-      headers: httpHeaders
-    }
-    console.log('body:');
-    console.log(req);
-    console.log('opt:');
-    console.log(options);
+      headers : httpHeaders
+    };
     return this.http.post(this.POSTS_API, req, options);
   }
 }
