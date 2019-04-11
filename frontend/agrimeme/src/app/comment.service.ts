@@ -18,4 +18,8 @@ export class CommentService {
   fetchComment(id: number): Observable<any>{
     return this.http.get<any>(this.postService.POSTS_API+`${id}`+'/comments');
   }
+
+  submitPost(postId: number, comment: Comment): Observable<any>{
+    return this.http.post<any>(this.postService.POSTS_API+`${postId}`+'/comments', comment);
+  }
 }

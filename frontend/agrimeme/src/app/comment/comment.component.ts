@@ -12,18 +12,28 @@ import { Comment } from '../comment';
 export class CommentComponent implements OnInit {
   @Input() id: number;
   public comments: Comment[];
+  comment= new Comment();
 
   constructor(
     private commentService: CommentService
   ) { }
 
   ngOnInit() {
-    this.getComment();
+    this.fetchComment();
   }
 
-  getComment(){
+  fetchComment(){
     this.commentService.fetchComment(this.id)
       .subscribe( comments => this.comments = comments.content );
+  }
+
+  submitComment(){
+    console.log(this.comment);
+    this.commentService.submitPost(this.id, this.comment)
+      .subscribe(
+        result => {
+          console.log(result);
+        });
   }
 
 }

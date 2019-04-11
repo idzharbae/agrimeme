@@ -12,7 +12,7 @@ import { CommentComponent } from '../comment/comment.component';
   styleUrls: ['./post.component.css']
 })
 export class PostComponent implements OnInit {
-  post: Post;
+  post = new Post();
   id: number;
 
   constructor(

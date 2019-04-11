@@ -16,7 +16,12 @@
       </ul>
       <ul class="navbar-nav navbar-right" *ngIf="isLogin">
         <li class="mx-1">
-          <a (click)="logout()" class="btn btn-primary btn-lg">Logout</a>
+          <a routerLink="/logout" class="btn btn-primary btn-lg">Logout</a>
+        </li>
+        <li>
+          <a routerLink="/newpost" class="btn btn-info btn-lg">
+            Post
+          </a>
         </li>
       </ul>
   </div>
