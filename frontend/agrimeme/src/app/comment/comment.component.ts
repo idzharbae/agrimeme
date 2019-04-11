@@ -34,6 +34,7 @@ export class CommentComponent implements OnInit {
         result => {
           console.log(result);
         });
+    this.fetchComment();
   }
 
 }

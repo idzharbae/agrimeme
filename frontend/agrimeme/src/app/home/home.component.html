@@ -11,7 +11,7 @@
     <div id="post-timeline" class="col-lg-6" *ngIf="posts">
       <div class="post" *ngFor="let post of posts">
         <a routerLink="/post/{{post.id}}"><h3 class="font-weight-bold pt-2">{{post.title}}</h3></a>
-        <img class="postimage pt-2 pb-2" src="{{post.content}}" alt="" width="100%">
+        <img class="postimage pt-2 pb-2" src="{{post.imageUrl}}" alt="" width="100%">
         <p class="post-meta">0 Vote . 0 comments</p>
         <div class="post-options pb-4 border-bottom">
           <button type="button" class="btn btn-outline-secondary"><i class="material-icons">arrow_upward</i></button>

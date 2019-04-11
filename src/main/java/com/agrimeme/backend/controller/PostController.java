@@ -55,7 +55,7 @@ public class PostController {
         return postRepository.findById(postId).map(post -> {
             post.setTitle(postRequest.getTitle());
             post.setDescription(postRequest.getDescription());
-            post.setContent(postRequest.getContent());
+            post.setImageUrl(postRequest.getImageUrl());
             return postRepository.save(post);
         }).orElseThrow(() -> new ResourceNotFoundException("PostId " + postId + " not found"));
     }
