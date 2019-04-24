@@ -23,22 +23,13 @@ export class PostService {
   }
 
   submitImage(image : FormData){
-    let httpHeaders = new HttpHeaders({
-     'Cache-Control': 'no-cache',
-     'Authorization' : 'Bearer '+localStorage.getItem('accessToken')
-    });
-    let options = {
-      headers : httpHeaders
-    };
     console.log(image);
-    return this.http.post(this.IMAGE_API, image, options);
+    return this.http.post(this.IMAGE_API, image);
   }
 
   submitPost(post: Post){
     let httpHeaders = new HttpHeaders({
-     'Content-Type' : 'application/json',
-     'Cache-Control': 'no-cache',
-     'Authorization' : 'Bearer '+localStorage.getItem('accessToken')
+     'Content-Type' : 'application/json'
     });
     let req = {
       title : post.title,

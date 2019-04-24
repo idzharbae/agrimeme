@@ -14,7 +14,6 @@ export class JwtInterceptor implements HttpInterceptor {
     if(this.userService.isLogin()){
       request = request.clone({
         setHeaders: {
-          'Content-Type': 'application/json',
           'Authorization': 'Bearer ' + localStorage.getItem('accessToken'),
           'Cache': 'no-cache'
         }
