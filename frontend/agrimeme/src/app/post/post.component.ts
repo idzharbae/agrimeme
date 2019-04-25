@@ -31,5 +31,5 @@ export class PostComponent implements OnInit {
     this.postService.fetchPost(this.id)
       .subscribe( post =>  this.post = post );
   }
-
+  
 }

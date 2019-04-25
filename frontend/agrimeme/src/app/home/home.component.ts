@@ -28,5 +28,24 @@ export class HomeComponent implements OnInit {
           this.posts.reverse();
         });
   }
+  upvote(postId, idx){
+    this.postService.upvote(postId).subscribe( result => {
+      console.log(result);
+      this.posts[idx].votes = result['votes'];
+    },
+    err => {
+      console.log(err);
+    });
+  }
+
+  downvote(postId, idx){
+    this.postService.downvote(postId).subscribe( result => {
+      console.log(result);
+      this.posts[idx].votes = result['votes'];
+    },
+    err => {
+      console.log(err);
+    });
+  }
 
 }

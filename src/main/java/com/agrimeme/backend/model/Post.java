@@ -34,7 +34,27 @@ public class Post extends AuditModel {
     @NotNull
     @Size(max = 250)
     private String imageUrl;
+    
+    private Long commentCount=0L;
+    
+    private Long votes=0L;
+    
+    public Long getCommentCount() {
+		return commentCount;
+	}
 
+	public void setCommentCount(Long commentCount) {
+		this.commentCount = commentCount;
+	}
+
+	public Long getVotes() {
+		return votes;
+	}
+
+	public void setVotes(Long votes) {
+		this.votes = votes;
+	}
+    
 	public Long getId() {
 		return id;
 	}

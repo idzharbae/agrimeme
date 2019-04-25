@@ -11,7 +11,7 @@
       <div class="post">
         <h3 class="font-weight-bold pt-2">{{post.title}}</h3>
         <img class="postimage pt-2 pb-2" src="{{post.imageUrl}}" alt="" width="100%">
-        <p class="post-meta">0 Vote . 0 comments</p>
+        <p class="post-meta">{{post.votes}} Vote . {{post.commentCount}} comments</p>
         <div class="post-options pb-4 border-bottom">
           <button type="button" class="btn btn-outline-secondary"><i class="material-icons">arrow_upward</i></button>
           <button type="button" class="btn btn-outline-secondary"><i class="material-icons">arrow_downward</i></button>

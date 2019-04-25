@@ -42,6 +42,7 @@ public class CommentController {
         return postRepository.findById(postId).map(post -> {
         	User user = userRepository.findById(userId).orElseThrow(() 
         			-> new ResourceNotFoundException("Invalid User id: " + userId));
+        	post.setCommentCount(post.getCommentCount() + 1);
             comment.setUser(user);
             comment.setUsername(user.getUsername());
             comment.setPost(post);

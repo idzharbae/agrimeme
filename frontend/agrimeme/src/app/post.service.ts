@@ -41,4 +41,26 @@ export class PostService {
     };
     return this.http.post(this.POSTS_API, req, options);
   }
+
+  upvote(postId : number){
+    let httpHeaders = new HttpHeaders({
+     'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    let options = {
+      headers : httpHeaders
+    };
+    return this.http.post(this.POSTS_API+`${postId}`+'/upvote', null, options);
+  }
+
+  downvote(postId : number){
+    let httpHeaders = new HttpHeaders({
+     'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    let options = {
+      headers : httpHeaders
+    };
+
+     return this.http.post(this.POSTS_API+`${postId}`+'/downvote', null, options);
+  }
+
 }
