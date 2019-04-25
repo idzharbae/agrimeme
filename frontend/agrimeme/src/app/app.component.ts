@@ -10,6 +10,9 @@ import {
 
 import { UserService } from './user.service';
 
+import { Observable, of } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

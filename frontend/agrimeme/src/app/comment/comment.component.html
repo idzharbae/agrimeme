@@ -1,4 +1,4 @@
-<form>
+<form *ngIf="isLogin">
   <div class="form-group">
     <label class="font-weight-bold" for="exampleFormControlTextarea1">Comment</label>
     <textarea type="text" placeholder="Write comments ..." class="form-control" [(ngModel)]="comment.text" name="text" rows="3"></textarea>
