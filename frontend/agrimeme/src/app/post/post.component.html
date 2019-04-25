@@ -13,8 +13,8 @@
         <img class="postimage pt-2 pb-2" src="{{post.imageUrl}}" alt="" width="100%">
         <p class="post-meta">{{post.votes}} Vote . {{post.commentCount}} comments</p>
         <div class="post-options pb-4 border-bottom">
-          <button type="button" class="btn btn-outline-secondary"><i class="material-icons">arrow_upward</i></button>
-          <button type="button" class="btn btn-outline-secondary"><i class="material-icons">arrow_downward</i></button>
+          <button type="button" class="btn btn-outline-secondary"><i class="material-icons" (click)="upvote(post.id, i)">arrow_upward</i></button>
+          <button type="button" class="btn btn-outline-secondary"><i class="material-icons" (click)="downvote(post.id, i)">arrow_downward</i></button>
         </div>
       </div>
       <app-comment [id]="id"></app-comment>
