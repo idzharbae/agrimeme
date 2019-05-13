@@ -2,10 +2,12 @@ package com.agrimeme.backend.payload;
 
 public class JwtAuthenticationResponse {
     private String accessToken;
+    private Long userId;
     private String tokenType = "Bearer";
 
-    public JwtAuthenticationResponse(String accessToken) {
+    public JwtAuthenticationResponse(String accessToken, Long userId) {
         this.accessToken = accessToken;
+        this.setUserId(userId);
     }
 
     public String getAccessToken() {
@@ -23,4 +25,12 @@ public class JwtAuthenticationResponse {
     public void setTokenType(String tokenType) {
         this.tokenType = tokenType;
     }
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
 }

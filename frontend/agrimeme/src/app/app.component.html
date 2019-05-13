@@ -6,22 +6,27 @@
     <a routerLink="/home" class="navbar-brand">Agrimeme</a>
       <ul class="navbar-nav navbar-right" *ngIf="!isLogin">
         <li class="mx-1">
-          <a routerLink="/signup" class="btn btn-primary btn-lg">Daftar</a>
+          <a routerLink="/signup" class="btn btn-outline-primary">Daftar</a>
         </li>
         <li>
-          <a routerLink="/signin" class="btn btn-info btn-lg">
+          <a routerLink="/signin" class="btn btn-outline-info">
             Login
           </a>
         </li>
       </ul>
       <ul class="navbar-nav navbar-right" *ngIf="isLogin">
-        <li class="mx-1">
-          <a routerLink="/logout" class="btn btn-primary btn-lg">Logout</a>
-        </li>
         <li>
-          <a routerLink="/newpost" class="btn btn-info btn-lg">
+          <a routerLink="/newpost" class="btn btn-outline-info">
             Post
           </a>
+        </li>
+        <li class="nav-item dropdown mx-1">
+          <div ngbDropdown class="d-inline-block">
+            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Profile</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button routerLink="/logout" ngbDropdownItem>Logout</button>
+            </div>
+          </div>
         </li>
       </ul>
   </div>

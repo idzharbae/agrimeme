@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -34,6 +35,11 @@ public class CommentController {
                                                 Pageable pageable) {
         return commentRepository.findByPostId(postId, pageable);
     }
+    
+    @GetMapping("/comments")
+    public List<Comment> getAllComments() {
+        return commentRepository.findAll();
+    }
 
     @PostMapping("/posts/{postId}/comments")
     public Comment createComment(@PathVariable (value = "postId") Long postId,
@@ -43,9 +49,9 @@ public class CommentController {
         	User user = userRepository.findById(userId).orElseThrow(() 
         			-> new ResourceNotFoundException("Invalid User id: " + userId));
         	post.setCommentCount(post.getCommentCount() + 1);
-            comment.setUser(user);
+            comment.setUserId(user.getId());
             comment.setUsername(user.getUsername());
-            comment.setPost(post);
+            comment.setPostId(postId);
             return commentRepository.save(comment);
         }).orElseThrow(() -> new ResourceNotFoundException("PostId " + postId + " not found"));
     }

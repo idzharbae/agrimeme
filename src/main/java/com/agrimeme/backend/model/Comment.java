@@ -18,17 +18,8 @@ public class Comment extends AuditModel {
     @Lob
     private String text;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "post_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
-    private Post post;
-    
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
-    private User user;
+    private Long postId;
+    private Long userId;
     
     private String username;
     
@@ -44,12 +35,20 @@ public class Comment extends AuditModel {
 		return id;
 	}
 
-	public User getUser() {
-		return user;
+	public Long getPostId() {
+		return postId;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setPostId(Long postId) {
+		this.postId = postId;
+	}
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
 	public void setId(Long id) {
@@ -62,14 +61,6 @@ public class Comment extends AuditModel {
 
 	public void setText(String text) {
 		this.text = text;
-	}
-
-	public Post getPost() {
-		return post;
-	}
-
-	public void setPost(Post post) {
-		this.post = post;
 	}
 
 

@@ -11,6 +11,7 @@ import com.agrimeme.backend.payload.SignUpRequest;
 import com.agrimeme.backend.repository.RoleRepository;
 import com.agrimeme.backend.repository.UserRepository;
 import com.agrimeme.backend.security.JwtTokenProvider;
+import com.agrimeme.backend.security.UserPrincipal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -60,9 +61,9 @@ public class AuthController {
         );
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
+        Long userId = ((UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
         String jwt = tokenProvider.generateToken(authentication);
-        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
+        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt, userId));
     }
 
     @PostMapping("/signup")

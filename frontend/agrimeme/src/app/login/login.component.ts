@@ -29,8 +29,8 @@ export class LoginComponent implements OnInit {
     this.userService._login(this.emailorusername, this.password)
       .subscribe(
         result => {
-          console.log(result['accessToken']);
           localStorage.setItem('accessToken', result['accessToken']);
+          localStorage.setItem('userId', result['userId']);
           this.userService.isUserLoggedIn.next(true);
           this.snackBar.open('login success!', 'dismiss', {
            duration: 5000,
