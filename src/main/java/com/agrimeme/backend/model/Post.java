@@ -17,11 +17,7 @@ public class Post extends AuditModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 	
-	@ManyToOne(fetch=FetchType.LAZY, optional=false)
-	@JoinColumn(name="user_id",nullable=false)
-	@OnDelete(action=OnDeleteAction.CASCADE)
-	@JsonIgnore	
-	private User user;
+	private Long userId;
 	
     @NotNull
     @Size(max = 100)
@@ -62,13 +58,13 @@ public class Post extends AuditModel {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	public User getUser() {
-		return user;
+	
+	public Long getUserId() {
+		return userId;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
 	public String getTitle() {
