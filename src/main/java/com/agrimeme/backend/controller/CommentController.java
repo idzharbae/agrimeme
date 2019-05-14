@@ -1,7 +1,10 @@
 package com.agrimeme.backend.controller;
 
 import com.agrimeme.backend.exceptions.ResourceNotFoundException;
+import com.agrimeme.backend.exceptions.BadRequestException;
+
 import com.agrimeme.backend.model.Comment;
+import com.agrimeme.backend.model.Post;
 import com.agrimeme.backend.model.User;
 import com.agrimeme.backend.repository.CommentRepository;
 import com.agrimeme.backend.repository.PostRepository;
@@ -73,7 +76,14 @@ public class CommentController {
     @DeleteMapping("/posts/{postId}/comments/{commentId}")
     public ResponseEntity<?> deleteComment(@PathVariable (value = "postId") Long postId,
                               @PathVariable (value = "commentId") Long commentId) {
+        Long userId = ((UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
         return commentRepository.findByIdAndPostId(commentId, postId).map(comment -> {
+            Post post = postRepository.findById(postId).orElseThrow(()
+                        -> new ResourceNotFoundException("Invalid Post id: " + postId));
+            if(comment.getUserId() != userId)
+                throw new BadRequestException("Unauthorized Request.");
+            post.setCommentCount(post.getCommentCount() - 1);
+            postRepository.save(post);
             commentRepository.delete(comment);
             return ResponseEntity.ok().build();
         }).orElseThrow(() -> new ResourceNotFoundException("Comment not found with id " + commentId + " and postId " + postId));
