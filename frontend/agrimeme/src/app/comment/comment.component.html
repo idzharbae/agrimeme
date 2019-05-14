@@ -8,12 +8,15 @@
   </div>
 </form>
 
-<div class="comment row pb-2" *ngFor="let comment of comments">
+<div class="comment row pb-2" *ngFor="let comment of comments; let i = index">
     <div class="col-auto">
       <img src="assets/avatar.jpg" alt="avatar" class="avatar rounded" style="width:50px;height:50px">
     </div>
     <div class="username col-lg">
       <a class="font-weight-bold">{{comment.username}}</a>
+      <div *ngIf="isLogin">
+        <button class="btn btn-info" *ngIf="userId == comment.userId" (click)="deleteComment(i)">{{x}}</button>
+      </div>
       <div class="comment-text">
         {{comment.text}}
       </div>

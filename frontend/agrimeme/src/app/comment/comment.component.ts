@@ -14,9 +14,10 @@ import { MatSnackBar } from "@angular/material";
 export class CommentComponent implements OnInit {
   @Input() id: number;
   public comments: Comment[];
-  comment= new Comment();
+  comment = new Comment();
 
   isLogin : boolean;
+  userId : number;
 
   constructor(
     private commentService: CommentService,
@@ -25,6 +26,7 @@ export class CommentComponent implements OnInit {
   ) {
     this.userService.isUserLoggedIn.subscribe( value => {
             this.isLogin = value;
+            this.userId = Number(localStorage.getItem('userId'));
     });
   }
 
@@ -34,7 +36,12 @@ export class CommentComponent implements OnInit {
 
   fetchComment(){
     this.commentService.fetchComment(this.id)
-      .subscribe( comments => this.comments = comments.content );
+      .subscribe( comments => {
+        this.comments = comments.content;
+    },
+    err => {
+      console.log(err);
+    });
   }
 
   submitComment(){
@@ -55,6 +62,15 @@ export class CommentComponent implements OnInit {
           return false;
         }
       );
+  }
+
+  deleteComment(index: number){
+    this.commentService.deleteComment(this.comments[index]).subscribe( result => {
+      console.log(result);
+    },
+    err => {
+      console.log(err);
+    });
   }
 
 }

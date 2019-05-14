@@ -22,4 +22,8 @@ export class CommentService {
   submitPost(postId: number, comment: Comment): Observable<any>{
     return this.http.post<any>(this.postService.POSTS_API+`${postId}`+'/comments', comment);
   }
+
+  deleteComment(comment: Comment): Observable<any>{
+    return this.http.delete<any>(this.postService.POSTS_API+`${comment.postId}`+'/comments/'+`${comment.id}`);
+  }
 }

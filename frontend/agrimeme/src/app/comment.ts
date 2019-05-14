@@ -4,4 +4,6 @@ export class Comment {
   id: number;
   text: string;
   username: string;
+  userId: number;
+  postId: number;
 }
