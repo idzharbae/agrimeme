@@ -1,6 +1,8 @@
 package com.agrimeme.backend.controller;
 
 import com.agrimeme.backend.exceptions.ResourceNotFoundException;
+import com.agrimeme.backend.exceptions.BadRequestException;
+
 import com.agrimeme.backend.model.Post;
 import com.agrimeme.backend.model.VoteIdentity;
 import com.agrimeme.backend.model.Votes;
@@ -54,11 +56,13 @@ public class PostController {
         }).orElseThrow(() -> new ResourceNotFoundException("UserId " + userId + " not found"));
     	
     }
-    
+    @RolesAllowed("ROLE_USER")
     @PutMapping("/posts/{postId}")
     public Post updatePost(@PathVariable Long postId, @Valid @RequestBody Post postRequest) {
-    	
+    	Long userId = ((UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
         return postRepository.findById(postId).map(post -> {
+            if(post.getUserId() != userId)
+                throw new BadRequestException("Unauthorized Request.");
             post.setTitle(postRequest.getTitle());
             post.setDescription(postRequest.getDescription());
             post.setImageUrl(postRequest.getImageUrl());
@@ -66,6 +70,7 @@ public class PostController {
         }).orElseThrow(() -> new ResourceNotFoundException("PostId " + postId + " not found"));
     }
     
+    @RolesAllowed("ROLE_USER")
     @PostMapping("/posts/{postId}/upvote")
 	public Post upvotePost(@PathVariable Long postId) {
 		Long userId = ((UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
@@ -89,8 +94,8 @@ public class PostController {
 	        return postRepository.save(post);
 	    }).orElseThrow(() -> new ResourceNotFoundException("PostId " + postId + " not found"));
 		
-	}
-    
+	} 
+    @RolesAllowed("ROLE_USER")
     @PostMapping("/posts/{postId}/downvote")
     public Post downvotePost(@PathVariable Long postId) {
     	Long userId = ((UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
@@ -115,12 +120,12 @@ public class PostController {
         }).orElseThrow(() -> new ResourceNotFoundException("PostId " + postId + " not found"));
     	
     }
-    
+    @RolesAllowed("ROLE_USER")
     @DeleteMapping("/posts/{postId}")
     public ResponseEntity<?> deletePost(@PathVariable Long postId) {
         Long userId = ((UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
         return postRepository.findById(postId).map(post -> {
-            if(comment.getUserId() != userId)
+            if(post.getUserId() != userId)
                 throw new BadRequestException("Unauthorized Request.");
             postRepository.delete(post);
             return ResponseEntity.ok().build();
