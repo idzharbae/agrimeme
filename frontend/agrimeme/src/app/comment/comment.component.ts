@@ -66,10 +66,17 @@ export class CommentComponent implements OnInit {
 
   deleteComment(index: number){
     this.commentService.deleteComment(this.comments[index]).subscribe( result => {
-      console.log(result);
+      this.snackBar.open('Comment deleted successfully!', 'dismiss', {
+       duration: 5000,
+      });
+      this.fetchComment();
     },
     err => {
       console.log(err);
+      this.snackBar.open( JSON.stringify(err['error']['message']+':'+err['error']['message']['detail']), 'dismiss', {
+       duration: 5000,
+      });
+      return false;
     });
   }
 

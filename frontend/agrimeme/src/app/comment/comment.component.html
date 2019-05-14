@@ -13,11 +13,13 @@
       <img src="assets/avatar.jpg" alt="avatar" class="avatar rounded" style="width:50px;height:50px">
     </div>
     <div class="username col-lg">
-      <a class="font-weight-bold">{{comment.username}}</a>
-      <div *ngIf="isLogin">
-        <button class="btn btn-info" *ngIf="userId == comment.userId" (click)="deleteComment(i)">{{x}}</button>
+      <div class="row justify-content-between">
+        <a class="font-weight-bold">{{comment.username}}</a>
+        <div *ngIf="isLogin">
+          <a *ngIf="userId == comment.userId" (click)="deleteComment(i)">✖</a>
+        </div>
       </div>
-      <div class="comment-text">
+      <div class="row comment-text">
         {{comment.text}}
       </div>
 
