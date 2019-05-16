@@ -53,7 +53,10 @@ public class PostController {
     	return postRepository.findById(postId).
     			orElseThrow(() -> new ResourceNotFoundException("PostId " + postId + " not found"));
     }
-    
+    @GetMapping("/user/{userId}/posts/upvoted")
+    public List<Votes> getUpvotedPosts(@PathVariable Long userId) {
+        return votesRepository.findByVoteIdentityUserId(userId);
+    }
     // POST Requests
     @RolesAllowed("ROLE_USER")
     @PostMapping("/posts")

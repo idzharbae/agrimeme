@@ -14,6 +14,6 @@ import com.agrimeme.backend.model.Post;
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findByUserId(Long userId);
-    @Query(value = "SELECT * FROM posts where created_at >= (CURDATE() - INTERVAL 7 DAY) ORDER BY votes DESC", nativeQuery = true)
+    @Query(value = "SELECT * FROM posts WHERE created_at >= (CURDATE() - INTERVAL 7 DAY) ORDER BY votes DESC", nativeQuery = true)
     Page<Post> findAllByOrderByVotesDesc(Pageable pageable);
 }
