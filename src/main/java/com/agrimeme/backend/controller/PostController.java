@@ -23,7 +23,9 @@ import java.util.Optional;
 import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 
-@RequestMapping("/api")
+import java.util.List;
+
+@RequestMapping("/api") // prefix URL
 @RestController
 public class PostController {
     @Autowired
@@ -32,13 +34,19 @@ public class PostController {
     private UserRepository userRepository;
     @Autowired
     private VotesRepository votesRepository;
-    @GetMapping("/")
-    public String hello() {
-    	return "Hello.";
-    }
+    
+    // GET Requests
     @GetMapping("/posts")
     public Page<Post> getAllPosts(Pageable pageable) {
         return postRepository.findAll(pageable);
+    }
+    @GetMapping("/user/{userId}/posts")
+    public List<Post> getPostByUser(@PathVariable Long userId) {
+        return postRepository.findByUserId(userId);
+    }
+    @GetMapping("/posts/trending")
+    public Page<Post> getTrendingPosts(Pageable pageable) {
+        return postRepository.findAllByOrderByVotesDesc(pageable);
     }
     @GetMapping("/posts/{postId}")
     public Post getPostById(@PathVariable Long postId) {
@@ -46,6 +54,7 @@ public class PostController {
     			orElseThrow(() -> new ResourceNotFoundException("PostId " + postId + " not found"));
     }
     
+    // POST Requests
     @RolesAllowed("ROLE_USER")
     @PostMapping("/posts")
     public Post createPost(@Valid @RequestBody Post post) {
@@ -56,6 +65,57 @@ public class PostController {
         }).orElseThrow(() -> new ResourceNotFoundException("UserId " + userId + " not found"));
     	
     }
+    @RolesAllowed("ROLE_USER")
+    @PostMapping("/posts/{postId}/upvote")
+    public Post upvotePost(@PathVariable Long postId) {
+        Long userId = ((UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
+        VoteIdentity vi = new VoteIdentity(postId, userId);
+        Optional<Votes> vote = votesRepository.findById(vi);
+        if(vote.isPresent()) {
+            return postRepository.findById(postId).map(post -> {
+                Votes voteObj = vote.get();
+                post.setVotes(post.getVotes() - voteObj.getValue());
+                voteObj.setValue(1L);
+                post.setVotes(post.getVotes() + voteObj.getValue());
+                return postRepository.save(post);
+            }).orElseThrow(() -> new ResourceNotFoundException("PostId " + postId + " not found"));
+        }
+        return postRepository.findById(postId).map(post -> {
+            Votes voteObj = new Votes();
+            voteObj.setVoteIdentity(vi);
+            voteObj.setValue(1L);
+            votesRepository.save(voteObj);
+            post.setVotes(post.getVotes() + voteObj.getValue());
+            return postRepository.save(post);
+        }).orElseThrow(() -> new ResourceNotFoundException("PostId " + postId + " not found"));
+        
+    } 
+    @RolesAllowed("ROLE_USER")
+    @PostMapping("/posts/{postId}/downvote")
+    public Post downvotePost(@PathVariable Long postId) {
+        Long userId = ((UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
+        VoteIdentity vi = new VoteIdentity(postId, userId);
+        Optional<Votes> vote = votesRepository.findById(vi);
+        if(vote.isPresent()) {
+            return postRepository.findById(postId).map(post -> {
+                Votes voteObj = vote.get();
+                post.setVotes(post.getVotes() - voteObj.getValue());
+                voteObj.setValue(-1L);
+                post.setVotes(post.getVotes() + voteObj.getValue());
+                return postRepository.save(post);
+            }).orElseThrow(() -> new ResourceNotFoundException("PostId " + postId + " not found"));
+        }
+        return postRepository.findById(postId).map(post -> {
+            Votes voteObj = new Votes();
+            voteObj.setVoteIdentity(vi);
+            voteObj.setValue(-1L);
+            votesRepository.save(voteObj);
+            post.setVotes(post.getVotes() + voteObj.getValue());
+            return postRepository.save(post);
+        }).orElseThrow(() -> new ResourceNotFoundException("PostId " + postId + " not found"));
+        
+    }
+    // PUT Requests
     @RolesAllowed("ROLE_USER")
     @PutMapping("/posts/{postId}")
     public Post updatePost(@PathVariable Long postId, @Valid @RequestBody Post postRequest) {
@@ -69,57 +129,7 @@ public class PostController {
             return postRepository.save(post);
         }).orElseThrow(() -> new ResourceNotFoundException("PostId " + postId + " not found"));
     }
-    
-    @RolesAllowed("ROLE_USER")
-    @PostMapping("/posts/{postId}/upvote")
-	public Post upvotePost(@PathVariable Long postId) {
-		Long userId = ((UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
-		VoteIdentity vi = new VoteIdentity(postId, userId);
-		Optional<Votes> vote = votesRepository.findById(vi);
-		if(vote.isPresent()) {
-			return postRepository.findById(postId).map(post -> {
-				Votes voteObj = vote.get();
-				post.setVotes(post.getVotes() - voteObj.getValue());
-				voteObj.setValue(1L);
-				post.setVotes(post.getVotes() + voteObj.getValue());
-	            return postRepository.save(post);
-	        }).orElseThrow(() -> new ResourceNotFoundException("PostId " + postId + " not found"));
-		}
-		return postRepository.findById(postId).map(post -> {
-			Votes voteObj = new Votes();
-			voteObj.setVoteIdentity(vi);
-			voteObj.setValue(1L);
-			votesRepository.save(voteObj);
-			post.setVotes(post.getVotes() + voteObj.getValue());
-	        return postRepository.save(post);
-	    }).orElseThrow(() -> new ResourceNotFoundException("PostId " + postId + " not found"));
-		
-	} 
-    @RolesAllowed("ROLE_USER")
-    @PostMapping("/posts/{postId}/downvote")
-    public Post downvotePost(@PathVariable Long postId) {
-    	Long userId = ((UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
-    	VoteIdentity vi = new VoteIdentity(postId, userId);
-    	Optional<Votes> vote = votesRepository.findById(vi);
-    	if(vote.isPresent()) {
-    		return postRepository.findById(postId).map(post -> {
-    			Votes voteObj = vote.get();
-    			post.setVotes(post.getVotes() - voteObj.getValue());
-    			voteObj.setValue(-1L);
-    			post.setVotes(post.getVotes() + voteObj.getValue());
-                return postRepository.save(post);
-            }).orElseThrow(() -> new ResourceNotFoundException("PostId " + postId + " not found"));
-    	}
-    	return postRepository.findById(postId).map(post -> {
-			Votes voteObj = new Votes();
-			voteObj.setVoteIdentity(vi);
-			voteObj.setValue(-1L);
-			votesRepository.save(voteObj);
-			post.setVotes(post.getVotes() + voteObj.getValue());
-            return postRepository.save(post);
-        }).orElseThrow(() -> new ResourceNotFoundException("PostId " + postId + " not found"));
-    	
-    }
+    // DELETE Requests
     @RolesAllowed("ROLE_USER")
     @DeleteMapping("/posts/{postId}")
     public ResponseEntity<?> deletePost(@PathVariable Long postId) {
