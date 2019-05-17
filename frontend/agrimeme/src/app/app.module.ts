@@ -18,6 +18,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PostComponent } from './post/post.component';
 import { CommentComponent } from './comment/comment.component';
 import { NewPostComponent } from './new-post/new-post.component';
+import { UserPostsComponent } from './user-posts/user-posts.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { NewPostComponent } from './new-post/new-post.component';
     PostComponent,
     LogoutComponent,
     CommentComponent,
-    NewPostComponent
+    NewPostComponent,
+    UserPostsComponent
   ],
   imports: [
     BrowserModule,

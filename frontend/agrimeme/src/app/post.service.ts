@@ -9,17 +9,24 @@ import { Post } from './post';
 export class PostService {
   public POSTS_API:string = 'http://localhost:8080/api/posts/';
   public IMAGE_API:string = 'http://localhost:8080/api/uploadFile/';
+  public USER_API:string = 'http://localhost:8080/api/user/'
 
   constructor(
     private http: HttpClient
   ) { }
 
+  // Get all posts
   fetchPosts(): Observable<any>{
       return this.http.get(this.POSTS_API);
   }
 
+  // Get a post by ID
   fetchPost(id: number): Observable<any>{
     return this.http.get(this.POSTS_API+`${id}`);
+  }
+
+  fetchUserPosts(userId: number): Observable<any>{
+    return this.http.get(this.USER_API+`${userId}`+'/posts');
   }
 
   submitImage(image : FormData){

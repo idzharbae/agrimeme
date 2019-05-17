@@ -6,5 +6,6 @@ export class Post {
   description: string;
   createdAt: string;
   updatedAt: string;
-  vote : number
+  vote : number;
+  userId: number;
 }

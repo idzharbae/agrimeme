@@ -14,9 +14,10 @@
     </div>
     <div class="username col-lg">
       <div class="row justify-content-between">
-        <a class="font-weight-bold">{{comment.username}}</a>
+        <a class="comment font-weight-bold" routerLink="/user/{{comment.userId}}/posts">{{comment.username}}</a>
         <div *ngIf="isLogin">
-          <a *ngIf="userId == comment.userId" (click)="deleteComment(i)">✖</a>
+          <!-- <button *ngIf="userId == comment.userId" (click)="deleteComment(i)">✖</button> -->
+          <button *ngIf="userId == comment.userId" (click)="deleteComment(i)" class="close">✖</button>
         </div>
       </div>
       <div class="row comment-text">

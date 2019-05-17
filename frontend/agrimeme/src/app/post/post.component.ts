@@ -31,7 +31,8 @@ export class PostComponent implements OnInit {
     this.postService.fetchPost(this.id)
       .subscribe( post =>  this.post = post );
   }
-    upvote(postId, idx){
+
+  upvote(postId, idx){
     this.postService.upvote(postId).subscribe( result => {
       console.log(result);
       this.post.votes = result['votes'];

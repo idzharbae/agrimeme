@@ -1,4 +1,3 @@
-<!-- Main -->
 <div class="container">
   <div class="row">
 
@@ -9,15 +8,14 @@
     </div>
 
     <div id="post-timeline" class="col-lg-6" *ngIf="posts">
+      <h3>Post of userid: {{userId}}</h3>
       <div class="post" *ngFor="let post of posts; index as i">
         <a class="title" routerLink="/post/{{post.id}}"><h3 class="font-weight-bold pt-2">{{post.title}}</h3></a>
         <img class="postimage pt-2 pb-2" src="{{post.imageUrl}}" alt="" width="100%">
         <p class="post-meta">{{post.votes}} Vote . {{post.commentCount}} comments</p>
         <div class="post-options pb-4 border-bottom">
-          <button *ngIf="post.vote != 1" type="button" class="btn btn-outline-secondary"><i class="material-icons" (click)="upvote(post.id, i)">arrow_upward</i></button>
-          <button *ngIf="post.vote == 1" type="button" class="btn active btn-outline-secondary"><i class="material-icons" (click)="upvote(post.id, i)">arrow_upward</i></button>
-          <button *ngIf="post.vote != -1" type="button" class="btn btn-outline-secondary"><i class="material-icons" (click)="downvote(post.id, i)">arrow_downward</i></button>
-          <button *ngIf="post.vote == -1" type="button" class="btn active btn-outline-secondary"><i class="material-icons" (click)="downvote(post.id, i)">arrow_downward</i></button>
+          <button type="button" class="btn btn-outline-secondary"><i class="material-icons" (click)="upvote(post.id, i)">arrow_upward</i></button>
+          <button type="button" class="btn btn-outline-secondary"><i class="material-icons" (click)="downvote(post.id, i)">arrow_downward</i></button>
           <button type="button" class="btn btn-outline-secondary" routerLink="/post/{{post.id}}"><i class="material-icons">comment</i></button>
           <button type="button" class="btn btn-outline-secondary"><i class="material-icons">more_horiz</i></button>
         </div>
@@ -33,4 +31,3 @@
 
   </div>
 </div>
-<!-- Main -->

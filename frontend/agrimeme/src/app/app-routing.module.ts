@@ -7,6 +7,7 @@ import { LogoutComponent } from './logout/logout.component';
 import { SignupComponent } from './signup/signup.component';
 import { PostComponent } from './post/post.component';
 import { NewPostComponent } from './new-post/new-post.component';
+import { UserPostsComponent } from './user-posts/user-posts.component';
 
 
 const routes: Routes = [
@@ -16,7 +17,8 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'logout', component: LogoutComponent },
   { path: 'post/:id', component: PostComponent },
-  { path: 'newpost', component: NewPostComponent}
+  { path: 'newpost', component: NewPostComponent },
+  { path: 'user/:userId/posts', component: UserPostsComponent },
 ];
 
 @NgModule({
