@@ -5,6 +5,7 @@ import { PostService } from '../post.service';
 
 import { Post } from '../post';
 import { CommentComponent } from '../comment/comment.component';
+import { FeaturedPostsComponent } from '../featured-posts/featured-posts.component';
 
 @Component({
   selector: 'app-post',

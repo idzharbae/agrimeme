@@ -29,6 +29,10 @@ export class PostService {
     return this.http.get(this.USER_API+`${userId}`+'/posts');
   }
 
+  fetchTrendingPosts(): Observable<any> {
+    return this.http.get(this.POSTS_API+'trending');
+  }
+
   submitImage(image : FormData){
     console.log(image);
     return this.http.post(this.IMAGE_API, image);

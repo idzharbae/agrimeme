@@ -19,6 +19,7 @@ import { PostComponent } from './post/post.component';
 import { CommentComponent } from './comment/comment.component';
 import { NewPostComponent } from './new-post/new-post.component';
 import { UserPostsComponent } from './user-posts/user-posts.component';
+import { FeaturedPostsComponent } from './featured-posts/featured-posts.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { UserPostsComponent } from './user-posts/user-posts.component';
     LogoutComponent,
     CommentComponent,
     NewPostComponent,
-    UserPostsComponent
+    UserPostsComponent,
+    FeaturedPostsComponent
   ],
   imports: [
     BrowserModule,

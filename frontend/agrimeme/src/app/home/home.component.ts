@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { PostService } from '../post.service';
 import { VotesService } from '../votes.service';
 
+import { FeaturedPostsComponent } from '../featured-posts/featured-posts.component';
 import { Post } from '../post';
 import { Votes } from '../votes';
 
@@ -14,7 +15,7 @@ import { Votes } from '../votes';
 export class HomeComponent implements OnInit {
 
   public posts: Post[];
-  public votes: Votes[]; 
+  public votes: Votes[];
   public userId : number;
   constructor(
     private postService: PostService, private votesService: VotesService

@@ -1,0 +1,7 @@
+.trending-post img {
+  object-fit: none;
+  object-position: center;
+  width: 100%;
+  max-height: 100px;
+  margin-bottom: 1rem;
+}

@@ -1,0 +1,8 @@
+
+  <p>Trending Posts</p>
+  <div *ngFor="let post of trendingposts">
+    <div class="trending-post" routerLink="/post/{{post.id}}">
+      <img src="{{post.imageUrl}}">
+      <p>{{post.title}}</p>
+    </div>
+  </div>
