@@ -9,7 +9,8 @@ Karena di IPB media penyebaran meme ini masih melalui jejaring sosial (*LINE*, *
 
 ## Tujuan Pembuatan Aplikasi
 1. Sebagai platform untuk berbagi konten meme.
-2. Sebagai sarana hiburan bagi penggunanya.
+2. Mempermudah pengguna untuk berbagi konten meme.
+3. Sebagai sarana hiburan bagi penggunanya.
 
 ## Lingkungan Pengembangan
 
