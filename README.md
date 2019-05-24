@@ -1,6 +1,4 @@
-# agrimeme-backend
-
-## DOCUMENTATION
+# Agrimeme
 
 ## Latar Belakang
 Di masa kini, banyak tersedia jejaring sosial untuk berbagi tentang suatu hal / informasi ke orang lain. Salah satu media untuk menyebarkan informasi tersebut adalah melalui budaya ‘meme’.
@@ -9,14 +7,34 @@ Di masa kini, banyak tersedia jejaring sosial untuk berbagi tentang suatu hal / 
 
 Karena di IPB media penyebaran meme ini masih melalui jejaring sosial (*LINE*, *Facebook*, dll. ), belum ada suatu tempat khusus untuk berbagi meme bagi masyarakat IPB. Dengan adanya **Agrimeme**, masyarakat kampus IPB diharapkan dapat berbagi konten meme melalui suatu platform yang tersentralisasi serta dapat diakses dengan mudah.
 
+## Tujuan Pembuatan Aplikasi
+1. Sebagai platform untuk berbagi konten meme.
+2. Sebagai sarana hiburan bagi penggunanya.
+
+## Lingkungan Pengembangan
+
+#### Teknologi yang digunakan:
+*   Java Springboot
+*   MySQL
+*   Angular 7
+*   Bootstrap v.4.3.1
+
+#### Tools yang digunakan:
+*   Eclipse IDE 2018-12
+*   Atom 1.37.0
+
+# DOKUMENTASI
+
 ## Use Case Diagram
-<h1 align='center'><img src="https://github.com/idzharbae/agrimeme-backend/blob/master/Dokumentasi/usecase.png"></h1>
+<h1 align='center'><img src="https://github.com/idzharbae/agrimeme-backend/blob/master/Dokumentasi/Use Case Diagram.png"></h1>
 
 ## Activity Diagram
-<h1 align='center'><img src="https://github.com/idzharbae/agrimeme-backend/blob/master/Dokumentasi/Activity%20Diagram.png"></h1>
+<h1 align='center'><img src="https://github.com/idzharbae/agrimeme-backend/blob/master/Dokumentasi/Activity Diagram_Fix.png"></h1>
 
 ## Class Diagram
-<h1 align='center'><img src="https://github.com/idzharbae/agrimeme-backend/blob/master/Dokumentasi/classDiagram%20Agrimeme.png"></h1>
+<h1 align='center'><img src="https://github.com/idzharbae/agrimeme-backend/blob/master/Dokumentasi/classDiagram Agrimeme.png"></h1>
+
+# Catatan:
 
 ### HTTP Request
 
