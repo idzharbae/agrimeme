@@ -33,6 +33,10 @@ export class PostService {
     return this.http.get(this.POSTS_API+'trending');
   }
 
+  deletePost(id: number): Observable<any>{
+    return this.http.delete(this.POSTS_API+`${id}`);
+  }
+
   submitImage(image : FormData){
     console.log(image);
     return this.http.post(this.IMAGE_API, image);

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { PostService } from '../post.service';
 import { VotesService } from '../votes.service';
+import { MatSnackBar } from "@angular/material";
 
 import { FeaturedPostsComponent } from '../featured-posts/featured-posts.component';
 import { Post } from '../post';
@@ -18,7 +19,7 @@ export class HomeComponent implements OnInit {
   public votes: Votes[];
   public userId : number;
   constructor(
-    private postService: PostService, private votesService: VotesService
+    private postService: PostService, private votesService: VotesService, private snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -45,6 +46,23 @@ export class HomeComponent implements OnInit {
               }
             });
         });
+  }
+
+  deletePost(postId) {
+    this.postService.deletePost(postId).subscribe( result => {
+      console.log(result);
+      this.getPost();
+      this.snackBar.open('Your post successfully deleted!', 'dismiss', {
+       duration: 5000,
+      });
+    },
+    err => {
+      console.log(err);
+      this.snackBar.open( JSON.stringify(err['error']['message']+':'+err['error']['message']['detail']), 'dismiss', {
+       duration: 5000,
+      });
+      return false;
+    });
   }
 
   upvote(postId, idx){

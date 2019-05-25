@@ -19,7 +19,7 @@
           <button *ngIf="post.vote != -1" type="button" class="btn btn-outline-secondary"><i class="material-icons" (click)="downvote(post.id, i)">arrow_downward</i></button>
           <button *ngIf="post.vote == -1" type="button" class="btn active btn-outline-secondary"><i class="material-icons" (click)="downvote(post.id, i)">arrow_downward</i></button>
           <button type="button" class="btn btn-outline-secondary" routerLink="/post/{{post.id}}"><i class="material-icons">comment</i></button>
-          <button type="button" class="btn btn-outline-secondary"><i class="material-icons">more_horiz</i></button>
+          <button *ngIf="post.userId == userId" type="button" class="btn btn-outline-secondary"><i class="material-icons" (click)="deletePost(post.id)">delete</i></button>
         </div>
       </div>
 

@@ -20,7 +20,7 @@ export class PostComponent implements OnInit {
     private postService: PostService,
     private route: ActivatedRoute
   ) {
-
+    this.getPost();
   }
 
   ngOnInit() {
