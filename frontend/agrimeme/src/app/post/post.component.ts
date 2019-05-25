@@ -24,11 +24,13 @@ export class PostComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getPost();
+    this.route.params.subscribe(routeParams => {
+      this.id = +this.route.snapshot.paramMap.get('id');
+  		this.getPost();
+  	});
   }
 
   getPost(){
-    this.id = +this.route.snapshot.paramMap.get('id');
     this.postService.fetchPost(this.id)
       .subscribe( post =>  this.post = post );
   }

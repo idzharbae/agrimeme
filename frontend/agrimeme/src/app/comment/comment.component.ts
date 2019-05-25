@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { UserService } from '../user.service';
 import { CommentService } from '../comment.service';
@@ -12,7 +13,7 @@ import { MatSnackBar } from "@angular/material";
   styleUrls: ['./comment.component.css']
 })
 export class CommentComponent implements OnInit {
-  @Input() id: number;
+  id: number;
   public comments: Comment[];
   comment = new Comment();
 
@@ -22,7 +23,8 @@ export class CommentComponent implements OnInit {
   constructor(
     private commentService: CommentService,
     private userService: UserService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private route: ActivatedRoute
   ) {
     this.userService.isUserLoggedIn.subscribe( value => {
             this.isLogin = value;
@@ -31,7 +33,10 @@ export class CommentComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.fetchComment();
+    this.route.params.subscribe(routeParams => {
+      this.id = +this.route.snapshot.paramMap.get('id');
+      this.fetchComment();
+    });
   }
 
   fetchComment(){
@@ -46,6 +51,12 @@ export class CommentComponent implements OnInit {
 
   submitComment(){
     console.log(this.comment);
+    if (this.comment.text.length > 75) {
+      this.snackBar.open('Maximum comment characters is 75!', 'dismiss', {
+       duration: 5000,
+      });
+      return false;
+    }
     this.commentService.submitPost(this.id, this.comment)
       .subscribe(
         result => {

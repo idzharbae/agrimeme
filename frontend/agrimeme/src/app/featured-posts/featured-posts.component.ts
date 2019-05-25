@@ -24,7 +24,7 @@ export class FeaturedPostsComponent implements OnInit {
   getTrendingPosts(){
     this.postService.fetchTrendingPosts().subscribe( result => {
       // console.log(result);
-      this.trendingposts = result.content;
+      this.trendingposts = result.content.slice(0,10);
     },
     err => {
       console.log(err);
